@@ -1,0 +1,565 @@
+> library(gdata)
+> library(sampling)
+>#importing the data
+> fullData=read.xls("~/Desktop/group stuff/STA304 SURVEY (1).xlsx")
+>    YEAR JOB living.status SLEEP      NEEDED.SLEEP     MOST.STRESSED
+1      2   1             1  7.00                10  OCTOBER/FEBRUARY
+2      2   0             1  7.00                10    NOVEMBER/MARCH
+3      2   1             1  7.00                 8  OCTOBER/FEBRUARY
+4      2   0             1  5.00                NO    DECEMBER/APRIL
+5      2   1             1  8.00                10    DECEMBER/APRIL
+6      2   0             1  6.50                 8    DECEMBER/APRIL
+7      2   0             1  8.50                NO    DECEMBER/APRIL
+8      3   1             1  6.00                 9  OCTOBER/FEBRUARY
+9      2   0             1  6.00                 8    NOVEMBER/MARCH
+10     2   0             1  7.00                 8    NOVEMBER/MARCH
+11     2   0             1  6.00                10  OCTOBER/FEBRUARY
+12     2   0             1  7.00                10    NOVEMBER/MARCH
+13     2   0             1  6.00                 8    DECEMBER/APRIL
+14     2   1             1  6.00                 8  OCTOBER/FEBRUARY
+15     3   0             1  7.50                 7    NOVEMBER/MARCH
+16     3   0             0  8.00                 8    NOVEMBER/MARCH
+17     3   1             1  7.00                NO    NOVEMBER/MARCH
+18     2   0             1  5.00                NO    DECEMBER/APRIL
+19     2   0             1  5.00                NO  OCTOBER/FEBRUARY
+20     2   1             1  6.00                 8    DECEMBER/APRIL
+21     3   0             1  7.00                 8    DECEMBER/APRIL
+22     2   0             1  5.00                 8    DECEMBER/APRIL
+23     2   0             1  6.00                 9    NOVEMBER/MARCH
+24     2   1             1  6.00                 9    DECEMBER/APRIL
+25     2   0             1  5.00                 8    DECEMBER/APRIL
+26     2   0             1  7.00                 7    DECEMBER/APRIL
+27     2   0             0  7.00                 9  OCTOBER/FEBRUARY
+28     2   1             1  6.00                NO    NOVEMBER/MARCH
+29     2   1             1  5.00                 6    NOVEMBER/MARCH
+30     2   0             1  6.00                 8    NOVEMBER/MARCH
+31     2   0             1  8.00                NO    NOVEMBER/MARCH
+32     2   1             1  6.50                 9    DECEMBER/APRIL
+33     2   1             1  6.50                NO    DECEMBER/APRIL
+34     2   0             1  7.50                 8    NOVEMBER/MARCH
+35     2   1             1  8.00                 8    DECEMBER/APRIL
+36     2   0             1  7.00                NO  OCTOBER/FEBRUARY
+37     2   1             1  6.00                 7    DECEMBER/APRIL
+38     2   0             1  6.00                NO    NOVEMBER/MARCH
+39     2   0             1  6.00                 9    NOVEMBER/MARCH
+40     2   0             1  6.50                NO    NOVEMBER/MARCH
+41     2   1             1  4.00                 8  OCTOBER/FEBRUARY
+42     2   0             1  6.00                 9    NOVEMBER/MARCH
+43     2   1             1  9.00                10    NOVEMBER/MARCH
+44     2   1             1  5.00                 8    NOVEMBER/MARCH
+45     2   0             1  7.00                NO    NOVEMBER/MARCH
+46     2   0             1  7.00                NO    DECEMBER/APRIL
+47     2   0             1  7.00                10    NOVEMBER/MARCH
+48     2   0             1  6.00                 8    NOVEMBER/MARCH
+49     3   0             0  6.00                 6    NOVEMBER/MARCH
+50     2   0             1  5.50                 9    DECEMBER/APRIL
+51     2   1             1  6.00                 8    NOVEMBER/MARCH
+52     2   1             0  7.00                 9 SEPTEMBER/JANUARY
+53     2   1             1  8.00                10    NOVEMBER/MARCH
+54     2   0             0  7.00                 8    NOVEMBER/MARCH
+55     2   0             1  5.00                 8    DECEMBER/APRIL
+56     2   1             1  6.00                 8    DECEMBER/APRIL
+57     2   0             0  6.00                12    DECEMBER/APRIL
+58     2   0             1  6.00                 8    DECEMBER/APRIL
+59     2   1             1  7.00                NO    DECEMBER/APRIL
+60     2   0             1  6.00                 7    DECEMBER/APRIL
+61     2   0             1  6.00                 7 SEPTEMBER/JANUARY
+62     3   1             1  7.50                 8  OCTOBER/FEBRUARY
+63     2   1             1  6.00                 8    NOVEMBER/MARCH
+64     2   0             1  9.00                 8    NOVEMBER/MARCH
+65     2   0             1  6.00                NO    NOVEMBER/MARCH
+66     3   1             1  5.00                 8    DECEMBER/APRIL
+67     2   1             1  6.00                 9    DECEMBER/APRIL
+68     2   0             1  6.00                NO    NOVEMBER/MARCH
+69     2   0             1  7.50                10    DECEMBER/APRIL
+70     2   0             1  7.00                NO  OCTOBER/FEBRUARY
+71     2   1             0  8.00                 8    NOVEMBER/MARCH
+72     2   0             0  7.50                 9    DECEMBER/APRIL
+73     2   1             1  5.00                 7  OCTOBER/FEBRUARY
+74     2   0             1  8.00                 8  OCTOBER/FEBRUARY
+75     2   1             1  6.00                 8    DECEMBER/APRIL
+76     2   0             1  6.00                 8    NOVEMBER/MARCH
+77     2   0             1  6.00                 8  OCTOBER/FEBRUARY
+78     2   1             1  6.00                 8    NOVEMBER/MARCH
+79     2   0             1  8.00                NO    NOVEMBER/MARCH
+80     2   0             1  4.00                 8    NOVEMBER/MARCH
+81     2   0             1  7.50                 8  OCTOBER/FEBRUARY
+82     2   0             1  4.00                 7  OCTOBER/FEBRUARY
+83     2   0             1  6.50                10  OCTOBER/FEBRUARY
+84     2   0             1  7.00                NO    DECEMBER/APRIL
+85     2   0             1  6.00                NO    DECEMBER/APRIL
+86     2   0             1  5.50                 5    NOVEMBER/MARCH
+87     2   0             1  4.50 6.500000000000000    NOVEMBER/MARCH
+88     4   1             1  7.00                 7  OCTOBER/FEBRUARY
+89     4   1             1  6.00 8.500000000000000    NOVEMBER/MARCH
+90     2   0             0  6.00                 8    NOVEMBER/MARCH
+91     2   0             1  6.00                 8    NOVEMBER/MARCH
+92     2   1             1  6.00 7.500000000000000    DECEMBER/APRIL
+93     2   0             1  6.00                 8    NOVEMBER/MARCH
+94     2   0             0  4.00                NO    NOVEMBER/MARCH
+95     2   1             1  6.00 7.750000000000000  OCTOBER/FEBRUARY
+96     3   1             0  7.50                11  OCTOBER/FEBRUARY
+97     2   0             1  8.00                NO    DECEMBER/APRIL
+98     2   0             1  6.00 6.500000000000000    DECEMBER/APRIL
+99     2   0             1  4.00                 8    NOVEMBER/MARCH
+100    2   0             0  6.00 8.500000000000000    NOVEMBER/MARCH
+101    2   0             1  5.00 7.500000000000000    NOVEMBER/MARCH
+102    2   0             1  5.00                 7    NOVEMBER/MARCH
+103    2   0             1  6.50                 9  OCTOBER/FEBRUARY
+104    2   0             1  7.00 8.500000000000000    DECEMBER/APRIL
+105    2   0             1  6.00                 9    NOVEMBER/MARCH
+106    2   0             1  6.50                10    NOVEMBER/MARCH
+107    2   0             1  6.00                 9    DECEMBER/APRIL
+108    2   0             1  8.00                 8    DECEMBER/APRIL
+109    2   0             1  6.00                NO    DECEMBER/APRIL
+110    2   1             1  6.00                 8    NOVEMBER/MARCH
+111    2   1             1  8.00                 7    NOVEMBER/MARCH
+112    3   0             1  5.50                12    DECEMBER/APRIL
+113    3   1             1  6.50                 7    DECEMBER/APRIL
+114    2   1             1  6.00                 8    NOVEMBER/MARCH
+115    2   0             1  6.00                12 SEPTEMBER/JANUARY
+116    2   1             1  7.75                10    NOVEMBER/MARCH
+117    2   1             1  7.50                NO    NOVEMBER/MARCH
+118    2   0             1  6.00                 7    NOVEMBER/MARCH
+119    3   0             1  7.00                 8    DECEMBER/APRIL
+120    2   0             1  7.00                 9    DECEMBER/APRIL
+121    2   1             1  5.00                 7    NOVEMBER/MARCH
+122    2   0             1  4.00                 7    NOVEMBER/MARCH
+123    2   0             1  6.00                NO    NOVEMBER/MARCH
+124    2   0             1  6.50                 7  OCTOBER/FEBRUARY
+125    2   0             1  4.00                NO  OCTOBER/FEBRUARY
+126    2   0             1  6.50                 8 SEPTEMBER/JANUARY
+127    2   1             1  4.50                 9  OCTOBER/FEBRUARY
+128    2   0             1  6.00                 8    NOVEMBER/MARCH
+129    2   1             1  6.00                 8    NOVEMBER/MARCH
+130    2   1             1  8.00                 8    NOVEMBER/MARCH
+131    2   1             1  5.00                NO    NOVEMBER/MARCH
+132    2   0             1  6.00                10    NOVEMBER/MARCH
+133    2   1             1  6.50                 8  OCTOBER/FEBRUARY
+134    3   0             1  6.00 8.500000000000000  OCTOBER/FEBRUARY
+135    2   0             1  6.50                 9  OCTOBER/FEBRUARY
+136    2   0             1  6.00                NO    DECEMBER/APRIL
+137    2   0             0  5.00                 8  OCTOBER/FEBRUARY
+138    3   0             1  5.00                 9  OCTOBER/FEBRUARY
+139    3   1             1  6.50                NO SEPTEMBER/JANUARY
+140    3   0             1  9.00                 8    DECEMBER/APRIL
+141    3   1             1  7.00                 7  OCTOBER/FEBRUARY
+142    3   0             1  6.50                 8  OCTOBER/FEBRUARY
+143    3   0             1  6.00                 8  OCTOBER/FEBRUARY
+144    4   1             1  5.00                 8  OCTOBER/FEBRUARY
+145    3   0             1  6.00                 8  OCTOBER/FEBRUARY
+146    3   0             0  5.00                 8    NOVEMBER/MARCH
+147    3   0             0  3.00                 8    NOVEMBER/MARCH
+148    3   0             1  5.00                 8    NOVEMBER/MARCH
+149    3   0             1  5.00                NO  OCTOBER/FEBRUARY
+150    3   1             1  7.00                 8    DECEMBER/APRIL
+151    3   1             1  7.00                 8    DECEMBER/APRIL
+152    4   1             1  6.00                10    DECEMBER/APRIL
+153    3   0             1  6.00                NO  OCTOBER/FEBRUARY
+154    3   1             1  6.50                 8    DECEMBER/APRIL
+155    3   0             1  5.50                 8    DECEMBER/APRIL
+156    3   0             1  5.00                10    DECEMBER/APRIL
+157    4   1             1  6.00                10  OCTOBER/FEBRUARY
+158    3   0             1  5.00                NO    DECEMBER/APRIL
+159    3   0             1  6.50                 7    DECEMBER/APRIL
+160    3   0             1  5.00                NO  OCTOBER/FEBRUARY
+161    3   1             1  7.00                 9    DECEMBER/APRIL
+162    3   1             1  7.00                 9  OCTOBER/FEBRUARY
+163    3   1             1  6.00 7.500000000000000    DECEMBER/APRIL
+164    4   0             1  6.00                NO  OCTOBER/FEBRUARY
+165    3   0             1  8.00                 8    NOVEMBER/MARCH
+166    3   1             1  6.00                 8  OCTOBER/FEBRUARY
+167    3   1             1 10.00                 8 SEPTEMBER/JANUARY
+168    3   0             1  6.00                NO  OCTOBER/FEBRUARY
+169    4   0             1  7.00                 8    NOVEMBER/MARCH
+170    5   1             1  6.00                 8  OCTOBER/FEBRUARY
+171    3   1             1  6.50 6.500000000000000  OCTOBER/FEBRUARY
+172    4   1             1  6.00                 8    NOVEMBER/MARCH
+173    3   0             0  6.00                 6    DECEMBER/APRIL
+174    3   0             1  7.00                 7    DECEMBER/APRIL
+175    3   0             1  7.00                 8    DECEMBER/APRIL
+176    3   0             0  7.00                 8    DECEMBER/APRIL
+177    5   1             1  6.00                 5  OCTOBER/FEBRUARY
+178    3   0             1  7.00                10  OCTOBER/FEBRUARY
+179    3   1             1  6.00                12  OCTOBER/FEBRUARY
+180    3   0             1  6.00                 8  OCTOBER/FEBRUARY
+181    3   0             1  6.00                 8    DECEMBER/APRIL
+182    3   0             1  7.00                 8    NOVEMBER/MARCH
+183    3   0             1  7.00                11  OCTOBER/FEBRUARY
+184    4   1             1  6.00                 8  OCTOBER/FEBRUARY
+185    3   0             1  7.00                 8 SEPTEMBER/JANUARY
+186    3   1             1  6.00                 8    DECEMBER/APRIL
+187    4   0             1  6.00                 9    NOVEMBER/MARCH
+188    3   1             1  7.00                 9    DECEMBER/APRIL
+189    2   0             1  6.00                 8    DECEMBER/APRIL
+190    3   1             1  4.00                 7    DECEMBER/APRIL
+191    3   1             1  6.00                 8  OCTOBER/FEBRUARY
+192    3   0             1  6.00                 8    NOVEMBER/MARCH
+193    3   0             1  5.00                 6  OCTOBER/FEBRUARY
+194    3   0             1  8.00                10    DECEMBER/APRIL
+195    3   0             1  7.00                 8  OCTOBER/FEBRUARY
+196    3   0             1  6.50                 8    DECEMBER/APRIL
+197    3   1             1  7.00                NO    DECEMBER/APRIL
+198    3   1             1  6.00                12    NOVEMBER/MARCH
+199    3   1             1  6.00                 8    DECEMBER/APRIL
+200    3   0             1  5.00                NO    DECEMBER/APRIL
+201    3   1             0  6.00                NO    DECEMBER/APRIL
+202    3   0             0  7.00                NO    DECEMBER/APRIL
+203    3   0             1  7.00                 9  OCTOBER/FEBRUARY
+204    3   0             1  8.00                 8  OCTOBER/FEBRUARY
+205    3   0             0  6.00                 8  OCTOBER/FEBRUARY
+206    3   0             0  6.00                 8  OCTOBER/FEBRUARY
+207    3   0             0  6.00                 8  OCTOBER/FEBRUARY
+208    3   1             1  7.00                 8  OCTOBER/FEBRUARY
+209    3   0             1  5.00                 9 SEPTEMBER/JANUARY
+210    3   1             1  5.00                 8  OCTOBER/FEBRUARY
+211    3   1             1  8.00                 8  OCTOBER/FEBRUARY
+212    3   0             1  5.00                 8    DECEMBER/APRIL
+213    3   0             1  6.00                 7  OCTOBER/FEBRUARY
+214    3   0             1  6.00 8.500000000000000  OCTOBER/FEBRUARY
+215    3   0             1  5.00                 8    NOVEMBER/MARCH
+216    4   0             1  7.50                10    NOVEMBER/MARCH
+217    4   0             1  5.00                 8    NOVEMBER/MARCH
+218    3   0             1  7.00                 8    NOVEMBER/MARCH
+219    2   0             1  8.00                 8    NOVEMBER/MARCH
+220    3   0             1  4.50                 8    NOVEMBER/MARCH
+221    3   1             1  8.00                 8    NOVEMBER/MARCH
+222    3   0             1 10.00                12    NOVEMBER/MARCH
+223    3   0             1  5.00                 8    NOVEMBER/MARCH
+224    3   0             1  4.00                 8    NOVEMBER/MARCH
+225    5   1             1  6.00                NO    NOVEMBER/MARCH
+226    5   1             1  5.50 7.500000000000000    NOVEMBER/MARCH
+227    4   0             1  8.00                10    DECEMBER/APRIL
+228    4   1             1  7.00                 9    NOVEMBER/MARCH
+229    4   1             1  6.00                10    DECEMBER/APRIL
+230    4   0             1  6.00                 8    NOVEMBER/MARCH
+231    6   0             1  6.00                 9    DECEMBER/APRIL
+232    4   0             1  6.00                 8 SEPTEMBER/JANUARY
+233    4   0             1  7.00                 9  OCTOBER/FEBRUARY
+           LESS.SLEEP LOANS  GPA CLASS
+1    OCTOBER/FEBRUARY     0 2.53   210
+2      DECEMBER/APRIL     1 2.01   210
+3    OCTOBER/FEBRUARY     1 2.51   210
+4      DECEMBER/APRIL     0 3.54   210
+5      NOVEMBER/MARCH     0 3.78   210
+6      DECEMBER/APRIL     1 3.09   210
+7      DECEMBER/APRIL     0 2.08   210
+8    OCTOBER/FEBRUARY     1 2.04   210
+9      NOVEMBER/MARCH     1 3.13   210
+10     NOVEMBER/MARCH     1 2.54   210
+11     NOVEMBER/MARCH     1 3.74   210
+12     NOVEMBER/MARCH     0 3.77   210
+13     NOVEMBER/MARCH     1 1.85   210
+14   OCTOBER/FEBRUARY     1 2.43   210
+15  SEPTEMBER/JANUARY     1 2.41   210
+16     NOVEMBER/MARCH     1 3.56   210
+17     NOVEMBER/MARCH     1 2.45   210
+18     NOVEMBER/MARCH     0 1.88   210
+19   OCTOBER/FEBRUARY     1 2.12   210
+20     DECEMBER/APRIL     1 3.09   210
+21     NOVEMBER/MARCH     1 3.01   210
+22     DECEMBER/APRIL     1 2.01   210
+23     NOVEMBER/MARCH     0 3.53   210
+24     DECEMBER/APRIL     1 2.67   210
+25     DECEMBER/APRIL     1 2.65   210
+26     DECEMBER/APRIL     1 3.17   210
+27   OCTOBER/FEBRUARY     0 2.63   210
+28     NOVEMBER/MARCH     1 2.66   210
+29     NOVEMBER/MARCH     0 2.71   210
+30     NOVEMBER/MARCH     1 2.78   210
+31     NOVEMBER/MARCH     1 3.24   210
+32     DECEMBER/APRIL     1 2.79   210
+33   OCTOBER/FEBRUARY     0 3.12   210
+34     NOVEMBER/MARCH     1 2.76   210
+35     DECEMBER/APRIL     1 1.97   210
+36     NOVEMBER/MARCH     1 2.98   210
+37     DECEMBER/APRIL     1 3.59   210
+38     NOVEMBER/MARCH     1 2.87   210
+39     NOVEMBER/MARCH     1 3.83   210
+40     NOVEMBER/MARCH     1 3.88   210
+41   OCTOBER/FEBRUARY     1 2.56   210
+42     NOVEMBER/MARCH     1 3.56   210
+43     NOVEMBER/MARCH     0 3.55   210
+44     NOVEMBER/MARCH     0 3.31   210
+45     NOVEMBER/MARCH     0 2.23   210
+46     DECEMBER/APRIL     1 3.41   210
+47     NOVEMBER/MARCH     1 2.87   210
+48     NOVEMBER/MARCH     1 3.71   210
+49     DECEMBER/APRIL     0 2.65   210
+50     DECEMBER/APRIL     0 2.56   210
+51     NOVEMBER/MARCH     0 2.53   210
+52  SEPTEMBER/JANUARY     1 3.78   210
+53     DECEMBER/APRIL     0 3.71   210
+54     NOVEMBER/MARCH     0 3.12   210
+55   OCTOBER/FEBRUARY     1 2.55   210
+56     DECEMBER/APRIL     0 3.73   210
+57     DECEMBER/APRIL     1 2.65   210
+58     DECEMBER/APRIL     1 1.47   210
+59     NOVEMBER/MARCH     1 3.37   210
+60     DECEMBER/APRIL     1 3.34   210
+61   OCTOBER/FEBRUARY     1 2.76   210
+62   OCTOBER/FEBRUARY     0 2.75   210
+63     NOVEMBER/MARCH     1 2.79   210
+64   OCTOBER/FEBRUARY     1 3.07   210
+65   OCTOBER/FEBRUARY     1 2.98   210
+66     DECEMBER/APRIL     1 2.96   210
+67     DECEMBER/APRIL     1 2.87   210
+68     NOVEMBER/MARCH     0 2.34   210
+69   OCTOBER/FEBRUARY     0 2.31   210
+70   OCTOBER/FEBRUARY     1 3.87   210
+71     NOVEMBER/MARCH     1 2.06   210
+72     NOVEMBER/MARCH     1 3.67   210
+73     NOVEMBER/MARCH     1 2.21   210
+74   OCTOBER/FEBRUARY     0 1.65   210
+75     NOVEMBER/MARCH     1 2.92   210
+76     NOVEMBER/MARCH     1 3.98   210
+77   OCTOBER/FEBRUARY     1 3.56   210
+78     DECEMBER/APRIL     0 3.87   210
+79     NOVEMBER/MARCH     1 3.82   210
+80     NOVEMBER/MARCH     1 3.91   210
+81   OCTOBER/FEBRUARY     1 3.76   210
+82   OCTOBER/FEBRUARY     1 2.84   210
+83  SEPTEMBER/JANUARY     1 3.39   210
+84     DECEMBER/APRIL     1 2.34   210
+85     NOVEMBER/MARCH     1 1.87   210
+86     NOVEMBER/MARCH     0 3.76   210
+87     NOVEMBER/MARCH     0 2.54   210
+88   OCTOBER/FEBRUARY     0 3.42   210
+89     NOVEMBER/MARCH     1 3.43   210
+90     NOVEMBER/MARCH     1 3.65   210
+91     NOVEMBER/MARCH     1 2.67   210
+92     DECEMBER/APRIL     1 2.61   210
+93     NOVEMBER/MARCH     1 3.91   210
+94     NOVEMBER/MARCH     0 2.69   210
+95     DECEMBER/APRIL     1 1.87   210
+96   OCTOBER/FEBRUARY     0 3.70   210
+97     NOVEMBER/MARCH     0 3.51   210
+98     DECEMBER/APRIL     1 2.54   210
+99     NOVEMBER/MARCH     1 2.55   210
+100    NOVEMBER/MARCH     1 2.43   210
+101    NOVEMBER/MARCH     1 3.09   210
+102    NOVEMBER/MARCH     1 3.51   210
+103  OCTOBER/FEBRUARY     1 2.65   210
+104    DECEMBER/APRIL     1 2.78   210
+105    NOVEMBER/MARCH     0 2.34   210
+106    NOVEMBER/MARCH     1 3.87   210
+107    DECEMBER/APRIL     1 3.55   210
+108    NOVEMBER/MARCH     1 1.98   210
+109    DECEMBER/APRIL     0 2.43   210
+110    NOVEMBER/MARCH     1 2.65   210
+111    DECEMBER/APRIL     1 1.78   210
+112  OCTOBER/FEBRUARY     1 3.78   210
+113    DECEMBER/APRIL     0 3.45   210
+114    NOVEMBER/MARCH     1 2.23   210
+115    NOVEMBER/MARCH     1 2.24   210
+116    NOVEMBER/MARCH     1 2.54   210
+117    NOVEMBER/MARCH     0 3.43   210
+118    NOVEMBER/MARCH     0 2.12   210
+119    DECEMBER/APRIL     0 3.12   210
+120    DECEMBER/APRIL     0 3.78   210
+121    NOVEMBER/MARCH     1 3.00   210
+122    NOVEMBER/MARCH     1 2.41   210
+123    NOVEMBER/MARCH     0 3.33   210
+124    DECEMBER/APRIL     0 2.92   210
+125  OCTOBER/FEBRUARY     1 3.73   210
+126 SEPTEMBER/JANUARY     0 2.63   210
+127  OCTOBER/FEBRUARY     1 3.43   210
+128    NOVEMBER/MARCH     1 2.54   210
+129    NOVEMBER/MARCH     0 3.55   210
+130    NOVEMBER/MARCH     0 2.63   210
+131    NOVEMBER/MARCH     1 3.62   210
+132    NOVEMBER/MARCH     0 2.50   210
+133    NOVEMBER/MARCH     1 3.00   210
+134  OCTOBER/FEBRUARY     0 2.55   210
+135  OCTOBER/FEBRUARY     0 2.34   210
+136    DECEMBER/APRIL     0 3.56   210
+137    NOVEMBER/MARCH     0 2.32   210
+138  OCTOBER/FEBRUARY     1 2.11   326
+139    DECEMBER/APRIL     1 3.87   326
+140    DECEMBER/APRIL     0 3.76   326
+141  OCTOBER/FEBRUARY     1 3.72   326
+142  OCTOBER/FEBRUARY     1 3.15   326
+143  OCTOBER/FEBRUARY     1 2.11   326
+144    DECEMBER/APRIL     0 3.43   326
+145  OCTOBER/FEBRUARY     1 2.24   326
+146    NOVEMBER/MARCH     0 2.08   326
+147    NOVEMBER/MARCH     0 1.89   326
+148    NOVEMBER/MARCH     1 2.12   326
+149  OCTOBER/FEBRUARY     1 2.43   380
+150    DECEMBER/APRIL     1 3.67   380
+151    DECEMBER/APRIL     1 2.65   380
+152    DECEMBER/APRIL     1 2.54   380
+153  OCTOBER/FEBRUARY     1 2.57   380
+154    DECEMBER/APRIL     0 3.12   380
+155    DECEMBER/APRIL     0 2.67   380
+156    NOVEMBER/MARCH     1 3.11   380
+157  OCTOBER/FEBRUARY     1 3.51   380
+158    DECEMBER/APRIL     1 1.98   380
+159    DECEMBER/APRIL     1 3.90   380
+160  OCTOBER/FEBRUARY     1 2.89   380
+161    NOVEMBER/MARCH     0 3.59   380
+162  OCTOBER/FEBRUARY     1 3.21   380
+163    DECEMBER/APRIL     0 2.61   380
+164  OCTOBER/FEBRUARY     1 3.70   380
+165    NOVEMBER/MARCH     0 3.42   380
+166  OCTOBER/FEBRUARY     1 3.74   380
+167 SEPTEMBER/JANUARY     1 3.76   380
+168  OCTOBER/FEBRUARY     1 3.01   380
+169    NOVEMBER/MARCH     1 3.09   380
+170  OCTOBER/FEBRUARY     0 2.51   380
+171  OCTOBER/FEBRUARY     1 3.71   380
+172    NOVEMBER/MARCH     1 3.07   380
+173    DECEMBER/APRIL     0 3.80   380
+174    DECEMBER/APRIL     0 3.11   380
+175    DECEMBER/APRIL     0 2.61   380
+176    DECEMBER/APRIL     0 3.06   380
+177  OCTOBER/FEBRUARY     1 2.55   380
+178  OCTOBER/FEBRUARY     0 2.54   380
+179  OCTOBER/FEBRUARY     1 3.77   380
+180  OCTOBER/FEBRUARY     0 3.71   380
+181    DECEMBER/APRIL     1 3.23   380
+182  OCTOBER/FEBRUARY     1 2.24   380
+183  OCTOBER/FEBRUARY     1 2.98   380
+184  OCTOBER/FEBRUARY     0 3.28   380
+185    DECEMBER/APRIL     1 3.21   380
+186    DECEMBER/APRIL     0 3.71   380
+187    NOVEMBER/MARCH     0 3.41   380
+188    NOVEMBER/MARCH     1 3.02   380
+189    DECEMBER/APRIL     1 3.66   380
+190    DECEMBER/APRIL     1 2.51   380
+191    NOVEMBER/MARCH     1 2.56   380
+192    DECEMBER/APRIL     1 2.22   380
+193  OCTOBER/FEBRUARY     0 2.78   380
+194    DECEMBER/APRIL     1 2.61   380
+195  OCTOBER/FEBRUARY     1 3.67   380
+196 SEPTEMBER/JANUARY     0 3.96   380
+197    DECEMBER/APRIL     1 2.65   380
+198    NOVEMBER/MARCH     1 2.66   380
+199    DECEMBER/APRIL     1 3.71   380
+200    DECEMBER/APRIL     1 3.59   380
+201    DECEMBER/APRIL     1 2.82   380
+202    DECEMBER/APRIL     0 3.55   380
+203  OCTOBER/FEBRUARY     0 3.34   380
+204  OCTOBER/FEBRUARY     0 3.72   380
+205  OCTOBER/FEBRUARY     0 2.57   380
+206  OCTOBER/FEBRUARY     0 2.23   380
+207  OCTOBER/FEBRUARY     1 2.56   380
+208  OCTOBER/FEBRUARY     1 2.51   380
+209 SEPTEMBER/JANUARY     1 2.09   380
+210  OCTOBER/FEBRUARY     1 3.35   380
+211  OCTOBER/FEBRUARY     1 2.07   380
+212    DECEMBER/APRIL     0 2.64   380
+213  OCTOBER/FEBRUARY     0 3.73   380
+214  OCTOBER/FEBRUARY     1 3.09   380
+215    NOVEMBER/MARCH     1 3.71   380
+216    NOVEMBER/MARCH     1 3.70   380
+217    NOVEMBER/MARCH     0 2.90   380
+218    NOVEMBER/MARCH     1 3.63   380
+219    NOVEMBER/MARCH     0 3.80   380
+220    NOVEMBER/MARCH     0 1.90   380
+221    NOVEMBER/MARCH     0 3.65   380
+222    NOVEMBER/MARCH     1 2.57   380
+223    NOVEMBER/MARCH     1 3.00   380
+224    NOVEMBER/MARCH     1 2.95   380
+225    NOVEMBER/MARCH     0 2.09   443
+226    NOVEMBER/MARCH     0 2.43   443
+227 SEPTEMBER/JANUARY     0 3.76   443
+228    NOVEMBER/MARCH     1 3.56   443
+229    DECEMBER/APRIL     1 2.56   443
+230    NOVEMBER/MARCH     1 3.71   443
+231    DECEMBER/APRIL     0 3.33   443
+232    DECEMBER/APRIL     0 3.12   443
+233  OCTOBER/FEBRUARY     1 3.54   443
+> #clustering 5 SRS
+> clusters=mstage(data=fullData,stage=c("cluster","stratified"),varnames=c("CLASS","GPA","SLEEP"),size=list(4,c(137,11,76,9)),method="srswor")
+> attach(fullData)
+># getting the sampled cluster sizes
+> mi=tapply(GPA,CLASS,length)
+> mi
+210 326 380 443 
+137  11  76   9 
+># calculating the average GPA for the sampled clusters
+> ybari=tapply(GPA,CLASS,mean)
+> ybari
+     210      326      380      443 
+2.928978 2.770909 3.070395 3.122222 
+># calculating the average number of hours slept per night for the sampled clusters
+> xbari=tapply(SLEEP,CLASS,mean)
+> xbari
+     210      326      380      443 
+6.297445 5.818182 6.322368 6.388889 
+# defining the population size of sampled clusters
+> M1=481
+> M2=39
+> M3=269
+> M4=32
+> Mi=c(M1,M2,M3,M4)
+> Mi
+[1] 481  39 269  32
+# getting the estimate of GPA for biology students at UTM
+> ybarhatr=sum(Mi*ybari)/sum(Mi)
+> ybarhatr
+[1] 2.975336
+# getting the estimate of average hours slept per night by biology students at UTM
+> xbarhatr=sum(Mi*xbari)/sum(Mi)
+> xbarhatr
+[1] 6.286409
+# calculating the variance for each sampled cluster
+> sqi=tapply(GPA,CLASS,var)
+> sqi
+      210       326       380       443 
+0.3793004 0.6497691 0.3023825 0.3777944 
+# calculating the overall variance for confidence interval
+> sum(Mi^2*(1-mi/Mi)*(sqi/mi))
+[1] 760.0689
+> thati=Mi*ybari
+> thati
+       210        326        380        443 
+1408.83847  108.06545  825.93618   99.91111 
+> st_squared=(1/3)*sum((thati- (2.975336/24))^2)
+> st_squared
+[1] 896017.1
+> Mbar=sum(Mi)/4
+> Mbar
+[1] 205.25
+
+
+# measuring homogeneity within cluster using anova
+> model=lm(fullData$GPA~fullData$SLEEP)
+> anova(model)
+Analysis of Variance Table
+
+Response: fullData$GPA
+                Df Sum Sq Mean Sq F value  Pr(>F)  
+fullData$SLEEP   1  2.228 2.22833  6.1876 0.01357 *
+Residuals      231 83.190 0.36013                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+M=2890 SSW= 82.924 S^2=760.0689
+# those information were obtained from the biology department
+> M1=453
+> M2=325
+> M3=460
+> M4=481
+> M5=30
+> M6=19
+> M7=46
+> M8=68
+> M9=39
+> M10=49
+> M11=28
+> M12=48
+> M13=64
+> M14=79
+> M15=109
+> M16=86
+> M17=269
+> M18=21
+> M19=12
+> M20=24
+> M21=32
+> M22=20
+> M23=26
+> M24=20
+> M1+M2+M3+M4+M5+M6+M7+M8+M9+M10+M11+M12+M13+M14+M15+M16+M17+M18+M19+M20+M21+M22+M23+M24
+[1] 2808
